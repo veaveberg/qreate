@@ -20,15 +20,6 @@ type Rect = {
   height: number;
 };
 
-// Type for an edge - No longer directly used for path generation with Paper.js, but kept for findOptimizedRectangles structure
-type Edge = {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-  isHorizontal: boolean;
-  id?: number;
-};
 
 const CUSTOM_CORNER_DESIGN_WIDTH = 245;
 const R = (val: number) => Math.round(val * 1000) / 1000;
