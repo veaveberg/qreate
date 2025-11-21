@@ -18,7 +18,8 @@ body {
 
 .container {
   max-width: 800px;
-  /* margin: 0 auto; */ /* Removed to allow body to center it */
+  /* margin: 0 auto; */
+  /* Removed to allow body to center it */
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -88,7 +89,8 @@ input:focus {
   width: auto;
 }
 
-.download-button, .copy-button {
+.download-button,
+.copy-button {
   border-radius: 8px;
   border: none;
   margin: 0;
@@ -139,7 +141,8 @@ input:focus {
 }
 
 .qr-code-container svg {
-  display: block; /* Remove any extra spacing */
+  display: block;
+  /* Remove any extra spacing */
 }
 
 .icon-row {
@@ -159,7 +162,9 @@ input:focus {
   /* This filter makes the icon blue. Adjust as needed. */
   outline: none;
 }
-.icon-action:focus, .icon-action:hover {
+
+.icon-action:focus,
+.icon-action:hover {
   filter: invert(32%) sepia(99%) saturate(7499%) hue-rotate(202deg) brightness(90%) contrast(120%);
 }
 
@@ -183,30 +188,38 @@ input:focus {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #42342e;
-    color: #ffeedd;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
   }
+
   .container {
     background: none;
   }
+
   h1 {
-    color: #ffeedd;
+    color: #ffffff;
   }
+
   input {
-    background: #5a463c;
-    color: #ffeedd;
-    border: 1px solid #6d5c53;
+    background: #3a3a3a;
+    color: #e0e0e0;
+    border: 1px solid #555555;
   }
+
   input:focus {
-    border-color: #ffb86c;
+    border-color: #6b9eff;
   }
+
   .qr-container.wide {
     background: none;
   }
+
   .icon-action {
-    filter: invert(70%) sepia(30%) saturate(800%) hue-rotate(330deg) brightness(90%) contrast(110%);
+    filter: invert(60%) sepia(50%) saturate(1000%) hue-rotate(190deg) brightness(100%) contrast(100%);
   }
-  .icon-action:focus, .icon-action:hover {
-    filter: invert(80%) sepia(40%) saturate(1200%) hue-rotate(330deg) brightness(110%) contrast(120%);
+
+  .icon-action:focus,
+  .icon-action:hover {
+    filter: invert(70%) sepia(60%) saturate(1200%) hue-rotate(190deg) brightness(110%) contrast(110%);
   }
 }

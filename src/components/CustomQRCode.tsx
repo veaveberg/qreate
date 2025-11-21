@@ -43,7 +43,7 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
   });
   const [isReady, setIsReady] = useState(false);
   const [qrCodePath, setQrCodePath] = useState<string>('');
-  
+
   const canvasRef = useRef<HTMLCanvasElement>(null); // For qrcode library
   const paperCanvasRef = useRef<HTMLCanvasElement | null>(null); // For Paper.js offscreen work
   const componentRef = useRef<HTMLDivElement>(null);
@@ -54,17 +54,17 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
       paperCanvasRef.current = document.createElement('canvas');
     }
     if (!paperScopeRef.current && paperCanvasRef.current) {
-        paperScopeRef.current = new paper.PaperScope();
-        paperScopeRef.current.setup(paperCanvasRef.current);
+      paperScopeRef.current = new paper.PaperScope();
+      paperScopeRef.current.setup(paperCanvasRef.current);
     }
 
     if (!canvasRef.current || !paperScopeRef.current) return;
-    
-    const currentPaperScope = paperScopeRef.current; 
+
+    const currentPaperScope = paperScopeRef.current;
     currentPaperScope.project.activeLayer.removeChildren();
 
     setIsReady(false);
-    
+
     const generateQR = async () => {
       try {
         const qrData = await QRCode.create(value, { errorCorrectionLevel: 'H' });
@@ -104,7 +104,7 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
         setIsReady(false);
       }
     };
-    
+
     generateQR();
 
   }, [value, cornerRadius]);
@@ -152,15 +152,15 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
   const uniteRectanglesImproved = (rects: Rect[], paperInstance: paper.PaperScope, dynamicCornerRadius: number): string => {
     if (rects.length === 0) return '';
     if (!paperInstance || !paperInstance.project) {
-        console.error("Paper.js instance or project not available in uniteRectanglesImproved");
-        return rects.map(r => `M${R(r.x)},${R(r.y)}h${R(r.width)}v${R(r.height)}h${R(-r.width)}Z`).join(' ');
+      console.error("Paper.js instance or project not available in uniteRectanglesImproved");
+      return rects.map(r => `M${R(r.x)},${R(r.y)}h${R(r.width)}v${R(r.height)}h${R(-r.width)}Z`).join(' ');
     }
 
     const currentRounding = dynamicCornerRadius > 0 ? dynamicCornerRadius : 0;
     let originalGlobalProject: paper.Project | null = null;
 
     if (currentRounding > 0) {
-      paperInstance.activate(); 
+      paperInstance.activate();
       originalGlobalProject = paper.project;
       paper.project = paperInstance.project;
     }
@@ -210,7 +210,7 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
 
     const groups = findConnectedGroups(rects);
     const allPathStrings: string[] = [];
-    
+
     paperInstance.project.activeLayer.removeChildren();
 
     for (const group of groups) {
@@ -219,11 +219,11 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
       if (group.length === 1) {
         const rect = group[0];
         let singleRectPath: paper.PathItem = new paperInstance.Path.Rectangle({
-            point: [R(rect.x), R(rect.y)],
-            size: [R(rect.width), R(rect.height)]
+          point: [R(rect.x), R(rect.y)],
+          size: [R(rect.width), R(rect.height)]
         });
         if (currentRounding > 0 && singleRectPath instanceof paperInstance.Path && singleRectPath.segments.length > 0) {
-            PaperRoundCorners.roundMany(singleRectPath.segments, currentRounding, { method: 'arc' });
+          PaperRoundCorners.roundMany(singleRectPath.segments, currentRounding, { method: 'arc' });
         }
         allPathStrings.push(singleRectPath.pathData);
         singleRectPath.remove();
@@ -242,13 +242,13 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
             combinedPath = paperRectPath;
           } else {
             const result: paper.PathItem = combinedPath.unite(paperRectPath);
-            if (combinedPath !== paperRectPath) { 
-                 combinedPath.remove(); 
+            if (combinedPath !== paperRectPath) {
+              combinedPath.remove();
             }
             paperRectPath.remove();
             combinedPath = result;
-            if (combinedPath) { 
-                 groupPaperItems.push(combinedPath);
+            if (combinedPath) {
+              groupPaperItems.push(combinedPath);
             }
           }
         }
@@ -268,18 +268,18 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
           allPathStrings.push(combinedPath.pathData);
         }
         groupPaperItems.forEach(p => {
-            if (p) p.remove();
+          if (p) p.remove();
         });
       }
     }
-    
-    if (originalGlobalProject !== null && paper.project !== originalGlobalProject) { 
+
+    if (originalGlobalProject !== null && paper.project !== originalGlobalProject) {
       paper.project = originalGlobalProject;
     }
 
     return allPathStrings.join(' ');
   };
-  
+
   const displaySize = 500;
   const cornerScale = finderPatternSize > 0 ? R(finderPatternSize / CUSTOM_CORNER_DESIGN_WIDTH) : 1;
   const halfDesignWidth = R(CUSTOM_CORNER_DESIGN_WIDTH / 2);
@@ -287,46 +287,46 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
   const loadingStyle: React.CSSProperties = {
     width: displaySize,
     height: displaySize,
-    backgroundColor: '#f5f5f7',
+    backgroundColor: '#e5e5e5',
     borderRadius: '8px',
   };
 
   return (
     <div className="custom-qr-container" ref={componentRef}>
-      <canvas ref={canvasRef} width="1015" height="1015" style={{ display: 'none' }}/>
+      <canvas ref={canvasRef} width="1015" height="1015" style={{ display: 'none' }} />
       {!isReady ? (
         <div style={loadingStyle}></div>
       ) : (
-        <svg 
-          width={displaySize} 
-          height={displaySize} 
+        <svg
+          width={displaySize}
+          height={displaySize}
           viewBox={`0 0 ${QR_CODE_VIEWBOX_SIZE} ${QR_CODE_VIEWBOX_SIZE}`}
           xmlns="http://www.w3.org/2000/svg"
           className="custom-qr-svg"
         >
-          <path 
+          <path
             className="qr-modules-path"
             d={qrCodePath}
             fill="#000000"
             fillRule="evenodd"
             shapeRendering="auto"
           />
-          <g 
-            transform={`translate(${cornerPositions.topLeft.x}, ${cornerPositions.topLeft.y}) rotate(90) scale(${cornerScale}) translate(-${halfDesignWidth}, -${halfDesignWidth})`} 
+          <g
+            transform={`translate(${cornerPositions.topLeft.x}, ${cornerPositions.topLeft.y}) rotate(90) scale(${cornerScale}) translate(-${halfDesignWidth}, -${halfDesignWidth})`}
             className="corner top-left"
           >
             <path d="M0,65c0,99.4,80.6,180,180,180h25c22.1,0,40-17.9,40-40V40c0-22.1-17.9-40-40-40H40C17.9,0,0,17.9,0,40v25ZM198.2,36.8c5.5,0,10,4.5,10,10v151.5c0,5.5-4.5,10-10,10h-12.5c-82.3,0-149-66.7-149-149v-12.5c0-5.5,4.5-10,10-10h151.5Z" />
             <path d="M165,70h-85c-5.5,0-10,4.5-9.5,10,4.7,50,44.5,89.8,94.5,94.5,5.5.5,10-4,10-9.5v-85c0-5.5-4.5-10-10-10Z" />
           </g>
-          <g 
-            transform={`translate(${cornerPositions.topRight.x}, ${cornerPositions.topRight.y}) rotate(180) scale(${cornerScale}) translate(-${halfDesignWidth}, -${halfDesignWidth})`} 
+          <g
+            transform={`translate(${cornerPositions.topRight.x}, ${cornerPositions.topRight.y}) rotate(180) scale(${cornerScale}) translate(-${halfDesignWidth}, -${halfDesignWidth})`}
             className="corner top-right"
           >
             <path d="M0,65c0,99.4,80.6,180,180,180h25c22.1,0,40-17.9,40-40V40c0-22.1-17.9-40-40-40H40C17.9,0,0,17.9,0,40v25ZM198.2,36.8c5.5,0,10,4.5,10,10v151.5c0,5.5-4.5,10-10,10h-12.5c-82.3,0-149-66.7-149-149v-12.5c0-5.5,4.5-10,10-10h151.5Z" />
             <path d="M165,70h-85c-5.5,0-10,4.5-9.5,10,4.7,50,44.5,89.8,94.5,94.5,5.5.5,10-4,10-9.5v-85c0-5.5-4.5-10-10-10Z" />
           </g>
-          <g 
-            transform={`translate(${cornerPositions.bottomLeft.x}, ${cornerPositions.bottomLeft.y}) rotate(0) scale(${cornerScale}) translate(-${halfDesignWidth}, -${halfDesignWidth})`} 
+          <g
+            transform={`translate(${cornerPositions.bottomLeft.x}, ${cornerPositions.bottomLeft.y}) rotate(0) scale(${cornerScale}) translate(-${halfDesignWidth}, -${halfDesignWidth})`}
             className="corner bottom-left"
           >
             <path d="M0,65c0,99.4,80.6,180,180,180h25c22.1,0,40-17.9,40-40V40c0-22.1-17.9-40-40-40H40C17.9,0,0,17.9,0,40v25ZM198.2,36.8c5.5,0,10,4.5,10,10v151.5c0,5.5-4.5,10-10,10h-12.5c-82.3,0-149-66.7-149-149v-12.5c0-5.5,4.5-10,10-10h151.5Z" />
