@@ -188,8 +188,8 @@ input:focus {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #2a2a2a;
-    color: #e0e0e0;
+    background-color: #42342e;
+    color: #ffeedd;
   }
 
   .container {
@@ -197,17 +197,17 @@ input:focus {
   }
 
   h1 {
-    color: #ffffff;
+    color: #ffeedd;
   }
 
   input {
-    background: #3a3a3a;
-    color: #e0e0e0;
-    border: 1px solid #555555;
+    background: #5a463c;
+    color: #ffeedd;
+    border: 1px solid #6d5c53;
   }
 
   input:focus {
-    border-color: #6b9eff;
+    border-color: #ffb86c;
   }
 
   .qr-container.wide {
@@ -215,11 +215,11 @@ input:focus {
   }
 
   .icon-action {
-    filter: invert(60%) sepia(50%) saturate(1000%) hue-rotate(190deg) brightness(100%) contrast(100%);
+    filter: invert(70%) sepia(30%) saturate(800%) hue-rotate(330deg) brightness(90%) contrast(110%);
   }
 
   .icon-action:focus,
   .icon-action:hover {
-    filter: invert(70%) sepia(60%) saturate(1200%) hue-rotate(190deg) brightness(110%) contrast(110%);
+    filter: invert(80%) sepia(40%) saturate(1200%) hue-rotate(330deg) brightness(110%) contrast(120%);
   }
 }

@@ -20,10 +20,9 @@ type Rect = {
   height: number;
 };
 
-
 const CUSTOM_CORNER_DESIGN_WIDTH = 245;
 const R = (val: number) => Math.round(val * 1000) / 1000;
-const QR_CODE_VIEWBOX_SIZE = 500;
+const QR_CODE_VIEWBOX_SIZE = 1015;
 
 const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 }) => {
   const [finderPatternSize, setFinderPatternSize] = useState<number>(145);
@@ -278,7 +277,7 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
   const loadingStyle: React.CSSProperties = {
     width: displaySize,
     height: displaySize,
-    backgroundColor: '#e5e5e5',
+    backgroundColor: '#f5f5f7',
     borderRadius: '8px',
   };
 
