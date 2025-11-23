@@ -82,10 +82,12 @@ function App() {
     }
   };
 
+  const isUpdating = text !== qrValue;
+
   return (
     <div className="container">
       <h1>QReate</h1>
-      <div className="qr-container wide">
+      <div className={`qr-container wide ${isUpdating ? 'updating' : ''}`}>
         <CustomQRCode value={qrValue} />
       </div>
       <div className="controls">
