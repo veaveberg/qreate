@@ -234,12 +234,12 @@ input:focus {
 
 @media (prefers-color-scheme: dark) {
   .icon-action {
-    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-    /* White icons in dark mode */
+    filter: invert(32%) sepia(99%) saturate(7499%) hue-rotate(202deg) brightness(99%) contrast(101%);
+    /* Blue icons in dark mode too */
   }
 
   .icon-action:focus,
   .icon-action:hover {
-    filter: invert(80%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    filter: invert(32%) sepia(99%) saturate(7499%) hue-rotate(202deg) brightness(110%) contrast(120%);
   }
 }
