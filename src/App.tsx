@@ -10,7 +10,9 @@ function App() {
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setQrValue(text)
+      if (text.trim()) {
+        setQrValue(text)
+      }
     }, 500) // Debounce delay of 500ms
 
     return () => {

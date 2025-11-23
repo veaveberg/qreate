@@ -277,7 +277,6 @@ const CustomQRCode: React.FC<CustomQRCodeProps> = ({ value, cornerRadius = 10 })
   const loadingStyle: React.CSSProperties = {
     width: displaySize,
     height: displaySize,
-    backgroundColor: '#ffffff',
     borderRadius: '8px',
   };
 
