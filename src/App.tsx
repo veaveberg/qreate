@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import CustomQRCode from './components/CustomQRCode'
 import downloadIcon from './assets/square.and.arrow.down.svg'
@@ -6,33 +6,44 @@ import copyIcon from './assets/document.on.document.svg'
 
 function App() {
   const [text, setText] = useState('https://example.com')
-  
+  const [qrValue, setQrValue] = useState(text)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setQrValue(text)
+    }, 500) // Debounce delay of 500ms
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [text])
+
   const downloadSVG = () => {
     const container = document.querySelector('.custom-qr-container');
     if (!container) return;
-    
+
     // Get the custom SVG that already has all elements
     const customSvg = container.querySelector('.custom-qr-svg');
     if (!customSvg) return;
-    
+
     // Clone the SVG for download
     const clonedSvg = customSvg.cloneNode(true) as SVGElement;
-    
+
     // Ensure the SVG has proper namespaces
     clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     clonedSvg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
-    
+
     // Convert to string
     const svgData = new XMLSerializer().serializeToString(clonedSvg);
-    
+
     // Create proper SVG document with XML declaration and DOCTYPE
     const svgDoctype = '<?xml version="1.0" standalone="no"?>\n<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
     const completeData = svgDoctype + '\n' + svgData;
-    
+
     // Create the download blob
     const blob = new Blob([completeData], { type: 'image/svg+xml' });
     const url = URL.createObjectURL(blob);
-    
+
     // Create filename from the URL
     let filename = text;
     // Remove http:// or https://
@@ -43,7 +54,7 @@ function App() {
     filename = filename.replace(/-+/g, '-');
     // Remove leading and trailing hyphens
     filename = filename.replace(/^-+|-+$/g, '');
-    
+
     const a = document.createElement('a');
     a.href = url;
     a.download = `qr-${filename}.svg`;
@@ -70,21 +81,21 @@ function App() {
       alert('Failed to copy SVG.');
     }
   };
-  
+
   return (
     <div className="container">
       <h1>QReate</h1>
       <div className="qr-container wide">
-        <CustomQRCode value={text} />
+        <CustomQRCode value={qrValue} />
       </div>
       <div className="controls">
         <div className="input-group">
           {/* <label htmlFor="text-input">URL or Text:</label> */}
-          <input 
+          <input
             id="text-input"
-            type="text" 
-            value={text} 
-            onChange={(e) => setText(e.target.value)} 
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             placeholder="Enter URL or text"
           />
         </div>
